@@ -1,0 +1,172 @@
+{
+  "tables": {
+    "permission_roles": {
+      "tableName": "permission_roles",
+      "schema": {
+        "permissionId": {
+          "references": {
+            "model": "permissions",
+            "key": "permission_id"
+          },
+          "field": "permission_id",
+          "primaryKey": true,
+          "onDelete": "CASCADE",
+          "onUpdate": "CASCADE",
+          "unique": "permission_roles_roleId_permissionId_unique",
+          "seqType": "Sequelize.UUID"
+        },
+        "roleId": {
+          "references": {
+            "model": "roles",
+            "key": "role_id"
+          },
+          "field": "role_id",
+          "primaryKey": true,
+          "onDelete": "CASCADE",
+          "onUpdate": "CASCADE",
+          "unique": "permission_roles_roleId_permissionId_unique",
+          "seqType": "Sequelize.UUID"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "created_at",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updated_at",
+          "seqType": "Sequelize.DATE"
+        }
+      },
+      "indexes": []
+    },
+    "permissions": {
+      "tableName": "permissions",
+      "schema": {
+        "permissionId": {
+          "primaryKey": true,
+          "field": "permission_id",
+          "seqType": "Sequelize.UUID"
+        },
+        "name": {
+          "field": "name",
+          "seqType": "Sequelize.STRING"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "created_at",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updated_at",
+          "seqType": "Sequelize.DATE"
+        }
+      },
+      "indexes": []
+    },
+    "roles": {
+      "tableName": "roles",
+      "schema": {
+        "roleId": {
+          "primaryKey": true,
+          "field": "role_id",
+          "seqType": "Sequelize.UUID"
+        },
+        "name": {
+          "field": "name",
+          "seqType": "Sequelize.STRING"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "created_at",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updated_at",
+          "seqType": "Sequelize.DATE"
+        }
+      },
+      "indexes": []
+    },
+    "user_roles": {
+      "tableName": "user_roles",
+      "schema": {
+        "userId": {
+          "references": {
+            "model": "users",
+            "key": "user_id"
+          },
+          "field": "user_id",
+          "primaryKey": true,
+          "onDelete": "CASCADE",
+          "onUpdate": "CASCADE",
+          "unique": "user_roles_userId_roleId_unique",
+          "seqType": "Sequelize.UUID"
+        },
+        "roleId": {
+          "references": {
+            "model": "roles",
+            "key": "role_id"
+          },
+          "field": "role_id",
+          "primaryKey": true,
+          "onDelete": "CASCADE",
+          "onUpdate": "CASCADE",
+          "unique": "user_roles_userId_roleId_unique",
+          "seqType": "Sequelize.UUID"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "created_at",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updated_at",
+          "seqType": "Sequelize.DATE"
+        }
+      },
+      "indexes": []
+    },
+    "users": {
+      "tableName": "users",
+      "schema": {
+        "userId": {
+          "defaultValue": {
+            "internal": true,
+            "value": "Sequelize.UUIDV1"
+          },
+          "primaryKey": true,
+          "field": "user_id",
+          "seqType": "Sequelize.UUID"
+        },
+        "accessToken": {
+          "field": "access_token",
+          "seqType": "Sequelize.TEXT"
+        },
+        "username": {
+          "field": "username",
+          "seqType": "Sequelize.STRING"
+        },
+        "password": {
+          "field": "password",
+          "seqType": "Sequelize.STRING"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "created_at",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updated_at",
+          "seqType": "Sequelize.DATE"
+        }
+      },
+      "indexes": []
+    }
+  },
+  "revision": 1
+}

@@ -18,7 +18,6 @@ export const getCentrifugeUser = async (githubUser) => {
       };
     }
     catch(ex) {
-      console.log('Error : ', ex);
       throw new Error('INVALID_USER');
     }
 };
@@ -57,7 +56,7 @@ export const userReqAfterAllowedDelay = async (user) => {
 
 export const logTokenRequest = async (centrifugeUser, tokenDetails) => {
   try{
-      const transferAmount = Config.CFG_TRANSFERAMOUNT;
+      const transferAmount = Config.CFG_TRANSFER_AMOUNT;
       await TokenRequests.create({
         user_uuid: centrifugeUser.centrifugeUser.uuid,
         fullName: tokenDetails.userFullName,

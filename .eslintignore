@@ -1,0 +1,7 @@
+/build
+/node_modules
+/config
+/scripts
+/src/migrations
+src/errors.js
+src/db.js

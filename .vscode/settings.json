@@ -1,0 +1,16 @@
+{
+  "flow.useNPMPackagedFlow": true,
+  "javascript.format.enable": false,
+  "javascript.validate.enable": false,
+  "vsicons.presets.angular": false,
+  "search.exclude": {
+    "**/.idea": true,
+    "**/build": true,
+    "**/node_modules": true,
+    "**/yarn-error.log": true,
+    "**/yarn.lock": true
+  },
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.singleQuote": true
+}

@@ -1,12 +1,3 @@
-/**
- * Copyright © 2016-present Kriasoft.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
-/* @flow */
-
 import type { ValidationErrorEntry } from './types';
 
 // TODO: Log the error to Google Stackdriver, Rollbar etc.

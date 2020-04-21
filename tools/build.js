@@ -1,10 +1,4 @@
 //#!/usr/bin/env node
-/**
- * Copyright © 2016-present Kriasoft.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 const fs = require('fs');
 const path = require('path');

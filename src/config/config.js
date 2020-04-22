@@ -17,7 +17,8 @@ const vars = {
       }
     },
     REQUEST_DELAY: 24, // request age after which token req allowed
-    GITHUB_ACCOUNT_AGE: 180 // github account age in days
+    GITHUB_ACCOUNT_AGE: 180, // github account age in days
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000'
   },
   test: {
     DB_NAME: 'testdb',
@@ -38,7 +39,8 @@ const vars = {
       }
     },
     REQUEST_DELAY: 24, // request age after which token req allowed
-    GITHUB_ACCOUNT_AGE: 180 // github account age in days
+    GITHUB_ACCOUNT_AGE: 180, // github account age in days
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000'
   },
   production: {
     DB_NAME: 'sqlite',
@@ -58,7 +60,8 @@ const vars = {
       }
     },
     REQUEST_DELAY: 24, // request delay after which token req allowed
-    GITHUB_ACCOUNT_AGE: 180 // github account age in days
+    GITHUB_ACCOUNT_AGE: 180, // github account age in days
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000'
   }
 };
 
@@ -103,6 +106,8 @@ const CFG_REQUEST_DELAY = process.env.REQUEST_DELAY ? process.env.REQUEST_DELAY 
 
 const CFG_GITHUB_ACCOUNT_AGE = process.env.GITHUB_ACCOUNT_AGE ? process.env.GITHUB_ACCOUNT_AGE : effVars.GITHUB_ACCOUNT_AGE;
 
+const CFG_ACCOUNT_TOKEN_LIMIT = process.env.ACCOUNT_TOKEN_LIMIT ? process.env.ACCOUNT_TOKEN_LIMIT : effVars.ACCOUNT_TOKEN_LIMIT;
+
 module.exports = {
   CFG_DB_NAME,
   CFG_DB_HOST,
@@ -122,5 +127,6 @@ module.exports = {
   CFG_MAXMIND_LICENSE_KEY,
   CFG_INVALID_COUNTRIES,
   CFG_REQUEST_DELAY,
-  CFG_GITHUB_ACCOUNT_AGE
+  CFG_GITHUB_ACCOUNT_AGE,
+  CFG_ACCOUNT_TOKEN_LIMIT
 };

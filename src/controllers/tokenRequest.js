@@ -58,6 +58,9 @@ export const requestTokens = async (req, res) => {
     const isUserReqAfterAllowedDelay = await UserService.userReqAfterAllowedDelay(user);
     if(!isUserReqAfterAllowedDelay) throw new Error(ErrorStatus.INVALID_REQ_WITHIN_DELAY_PERIOD);
 
+    const isOverAllLimitReached = await UserService.checkOverallTokenLimit(user);
+    if(!isOverAllLimitReached) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
+
     const isValidCountry = await checkIPForValidCountry(ipAddress);
     if(!isValidCountry) throw new Error(ErrorStatus.INVALID_COUNTRY);
 

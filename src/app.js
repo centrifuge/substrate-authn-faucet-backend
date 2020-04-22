@@ -27,6 +27,7 @@ import corsOptions from './cors';
 import user from './routes/user'; // TODO: REMOVE the user route.
 import tokenRequest from './routes/tokenRequest';
 import healthcheck from './routes/healthCheck';
+import * as UserService from './services/user-service';
 
 i18next
   .use(LanguageDetector)
@@ -87,6 +88,7 @@ app.use('/user', user);
 app.use('/token-request', tokenRequest);
 app.use('/healthcheck', healthcheck);
 
+UserService.checkHourDayWeakLimit();
 // The following routes are intended to be used in development mode only
 // TODO : Remove Me
 if (process.env.NODE_ENV !== 'production') {

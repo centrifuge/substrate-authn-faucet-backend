@@ -38,6 +38,10 @@ export const getErrorMessageandCode = (error) => {
           error_code = 422;
           error_message = 'Please agree on terms of service and privacy policy.';
           break;
+        case errorStatus.OVERALL_LIMIT_REACHED:
+          error_code = 422;
+          error_message = 'Your overall account limit is reached. Please try again later.';
+          break;
         default:
           error_code = 400;
           error_message = 'Something went wrong. Please try again later.';

@@ -1,5 +1,7 @@
+import { BN } from 'bn.js';
 import { Users, TokenRequests } from '../models';
 import Config from '../config/config';
+import * as ErrorStatus from '../constants/error-status';
 
 export const getCentrifugeUser = async (githubUser) => {
   try{
@@ -74,5 +76,66 @@ export const logTokenRequest = async (centrifugeUser, tokenDetails) => {
     }
     catch(ex) {
       throw new Error('INVALID_TOKEN_REQUEST');
+    }
+};
+
+export const checkOverallTokenLimit = async (centrifugeUser) => {
+  try{
+    const accountTokenLimit = Config.CFG_ACCOUNT_TOKEN_LIMIT;
+    const TokenRequest = await TokenRequests.findAll({
+        where : { user_uuid: centrifugeUser.centrifugeUser.uuid },
+        raw : true 
+        });
+      let totalValue;
+      TokenRequest.map(req => {
+        totalValue = new BN(totalValue).add(new BN(req.txAmount));
+      });
+      if(totalValue.gt(new BN(accountTokenLimit))) 
+        return false;
+      return true;
+    }
+    catch(ex) {
+      throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
+    }
+};
+
+const getDateHour = (createdAt) => {
+  const day = new Date(createdAt);
+  return day.getFullYear() + '-' + (day.getMonth() + 1) + '-' + day.getDate() + ' ' + day.getHours() + ':00:00';
+};
+
+const getDay = (createdAt) => {
+  const day = new Date(createdAt);
+  return day.getFullYear() + '-' + (day.getMonth() + 1) + '-' + day.getDate() + ' 00:00:00';
+};
+
+export const checkHourDayWeakLimit = async () => {
+  try{
+      const TokenRequest = await TokenRequests.findAll({
+        raw : true 
+      });
+      let result = { day: {}, hourly: {}, weekly: {}};
+      TokenRequest.map(req=> {
+        const dayhour = getDateHour(req.createdAt);
+        if(result.hourly[dayhour] === undefined) {
+          result.hourly[dayhour] = 1;
+        }
+        else {
+          result.hourly[dayhour] = result.hourly[dayhour] + 1;
+        }
+
+        const day = getDay(req.createdAt);
+        if(result.day[day] === undefined) {
+          result.day[day] = 1;
+        }
+        else {
+          result.day[day] = result.day[day] + 1;
+        }
+      });
+      console.log(result);
+    }
+    catch(ex) {
+      console.log(ex);
+      throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
     }
 };

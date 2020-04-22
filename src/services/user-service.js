@@ -2,7 +2,7 @@ import { BN } from 'bn.js';
 import { Users, TokenRequests } from '../models';
 import Config from '../config/config';
 import * as ErrorStatus from '../constants/error-status';
-let hourDayWeekData = { day: {}, hourly: {}, weekly: {}};
+let hourDayWeekData = { daily: {}, hourly: {}, weekly: {}};
 
 export const getCentrifugeUser = async (githubUser) => {
   try{
@@ -142,11 +142,11 @@ export const updateHourDayWeakData = (createdAt) => {
   }
 
   const day = getDay(createdAt);
-  if(hourDayWeekData.day[day] === undefined) {
-    hourDayWeekData.day[day] = new BN(transferAmount);
+  if(hourDayWeekData.daily[day] === undefined) {
+    hourDayWeekData.daily[day] = new BN(transferAmount);
   }
   else {
-    hourDayWeekData.day[day] = new BN(hourDayWeekData.day[day]).add(new BN(transferAmount));
+    hourDayWeekData.daily[day] = new BN(hourDayWeekData.daily[day]).add(new BN(transferAmount));
   }
 
   const weekNo = getWeekNo(createdAt);
@@ -168,7 +168,7 @@ export const checkHourDayWeakLimit = async () => {
     throw new Error(ErrorStatus.HOURLY_LIMIT_REACHED);
   }
   const day = getDay(reqDate);
-  if(new BN(hourDayWeekData.day[day]).gte(new BN(dailyLimit))) {
+  if(new BN(hourDayWeekData.daily[day]).gte(new BN(dailyLimit))) {
     throw new Error(ErrorStatus.DAILY_LIMIT_REACHED);
   }
   const weekNo = getWeekNo(reqDate);

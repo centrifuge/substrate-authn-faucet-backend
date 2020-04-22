@@ -2,6 +2,7 @@ import { BN } from 'bn.js';
 import { Users, TokenRequests } from '../models';
 import Config from '../config/config';
 import * as ErrorStatus from '../constants/error-status';
+let hourDayWeekData = { day: {}, hourly: {}, weekly: {}};
 
 export const getCentrifugeUser = async (githubUser) => {
   try{
@@ -72,6 +73,7 @@ export const logTokenRequest = async (centrifugeUser, tokenDetails) => {
         txHash: tokenDetails.txHash,
         completed: true
       });
+      updateHourDayWeakData(new Date());
       return true;
     }
     catch(ex) {
@@ -109,33 +111,83 @@ const getDay = (createdAt) => {
   return day.getFullYear() + '-' + (day.getMonth() + 1) + '-' + day.getDate() + ' 00:00:00';
 };
 
+function getWeekNumber(d) {
+  // Copy date so don't modify original
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  // Set to nearest Thursday: current date + 4 - current day number
+  // Make Sunday's day number 7
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+  // Get first day of year
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  // Calculate full weeks to nearest Thursday
+  var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+  // Return array of year and week number
+  return [d.getUTCFullYear(), weekNo];
+}
+
+const getWeekNo = (createdAt) => {
+  const day = new Date(createdAt);
+  var result = getWeekNumber(day);
+  return result[1] + '-' + result[0];
+};
+
+export const updateHourDayWeakData = (createdAt) => {
+  const dayhour = getDateHour(createdAt);
+  const transferAmount = Config.CFG_TRANSFER_AMOUNT;
+  if(hourDayWeekData.hourly[dayhour] === undefined) {
+    hourDayWeekData.hourly[dayhour] = new BN(transferAmount);
+  }
+  else {
+    hourDayWeekData.hourly[dayhour] = new BN(hourDayWeekData.hourly[dayhour]).add(new BN(transferAmount));
+  }
+
+  const day = getDay(createdAt);
+  if(hourDayWeekData.day[day] === undefined) {
+    hourDayWeekData.day[day] = new BN(transferAmount);
+  }
+  else {
+    hourDayWeekData.day[day] = new BN(hourDayWeekData.day[day]).add(new BN(transferAmount));
+  }
+
+  const weekNo = getWeekNo(createdAt);
+  if(hourDayWeekData.weekly[weekNo] === undefined) {
+    hourDayWeekData.weekly[weekNo] = new BN(transferAmount);
+  }
+  else {
+    hourDayWeekData.weekly[weekNo] = new BN(hourDayWeekData.weekly[weekNo]).add(new BN(transferAmount));
+  }
+};
+
 export const checkHourDayWeakLimit = async () => {
+  const hourlyLimit = Config.CFG_HOURLY_LIMIT;
+  const dailyLimit = Config.CFG_DAILY_LIMIT;
+  const weeklyLimit = Config.CFG_WEEKLY_LIMIT;
+  const reqDate = new Date();
+  const dayHour = getDateHour(reqDate);
+  if(new BN(hourDayWeekData.hourly[dayHour]).gte(new BN(hourlyLimit))) {
+    throw new Error(ErrorStatus.HOURLY_LIMIT_REACHED);
+  }
+  const day = getDay(reqDate);
+  if(new BN(hourDayWeekData.day[day]).gte(new BN(dailyLimit))) {
+    throw new Error(ErrorStatus.DAILY_LIMIT_REACHED);
+  }
+  const weekNo = getWeekNo(reqDate);
+  if(new BN(hourDayWeekData.weekly[weekNo]).gte(new BN(weeklyLimit))) {
+    throw new Error(ErrorStatus.WEEKLY_LIMIT_REACHED);
+  }
+  return true;
+};
+
+export const prepareHourDayWeakLimitData = async () => {
   try{
       const TokenRequest = await TokenRequests.findAll({
         raw : true 
       });
-      let result = { day: {}, hourly: {}, weekly: {}};
       TokenRequest.map(req=> {
-        const dayhour = getDateHour(req.createdAt);
-        if(result.hourly[dayhour] === undefined) {
-          result.hourly[dayhour] = 1;
-        }
-        else {
-          result.hourly[dayhour] = result.hourly[dayhour] + 1;
-        }
-
-        const day = getDay(req.createdAt);
-        if(result.day[day] === undefined) {
-          result.day[day] = 1;
-        }
-        else {
-          result.day[day] = result.day[day] + 1;
-        }
+        updateHourDayWeakData(req.createdAt);
       });
-      console.log(result);
     }
     catch(ex) {
-      console.log(ex);
       throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
     }
 };

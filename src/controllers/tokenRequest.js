@@ -64,6 +64,9 @@ export const requestTokens = async (req, res) => {
     const isValidCountry = await checkIPForValidCountry(ipAddress);
     if(!isValidCountry) throw new Error(ErrorStatus.INVALID_COUNTRY);
 
+    const isValidHourDayWeekLimit = await UserService.checkHourDayWeakLimit();
+    if(!isValidHourDayWeekLimit) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
+
     console.log('Recipient address : ', address);
     const txHash = await Centrifuge.transfer(address);
 

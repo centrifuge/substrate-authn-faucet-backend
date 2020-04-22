@@ -88,7 +88,7 @@ app.use('/user', user);
 app.use('/token-request', tokenRequest);
 app.use('/healthcheck', healthcheck);
 
-UserService.checkHourDayWeakLimit();
+UserService.prepareHourDayWeakLimitData();
 // The following routes are intended to be used in development mode only
 // TODO : Remove Me
 if (process.env.NODE_ENV !== 'production') {

@@ -18,7 +18,10 @@ const vars = {
     },
     REQUEST_DELAY: 24, // request age after which token req allowed
     GITHUB_ACCOUNT_AGE: 180, // github account age in days
-    ACCOUNT_TOKEN_LIMIT: '1000000000000000'
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000',
+    HOURLY_LIMIT: '300000000000000',
+    DAILY_LIMIT: '500000000000000',
+    WEEKLY_LIMIT: '1000000000000000'
   },
   test: {
     DB_NAME: 'testdb',
@@ -40,7 +43,10 @@ const vars = {
     },
     REQUEST_DELAY: 24, // request age after which token req allowed
     GITHUB_ACCOUNT_AGE: 180, // github account age in days
-    ACCOUNT_TOKEN_LIMIT: '1000000000000000'
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000',
+    HOURLY_LIMIT: '300000000000000',
+    DAILY_LIMIT: '500000000000000',
+    WEEKLY_LIMIT: '1000000000000000'
   },
   production: {
     DB_NAME: 'sqlite',
@@ -61,7 +67,10 @@ const vars = {
     },
     REQUEST_DELAY: 24, // request delay after which token req allowed
     GITHUB_ACCOUNT_AGE: 180, // github account age in days
-    ACCOUNT_TOKEN_LIMIT: '1000000000000000'
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000',
+    HOURLY_LIMIT: '300000000000000',
+    DAILY_LIMIT: '500000000000000',
+    WEEKLY_LIMIT: '1000000000000000'
   }
 };
 
@@ -108,6 +117,10 @@ const CFG_GITHUB_ACCOUNT_AGE = process.env.GITHUB_ACCOUNT_AGE ? process.env.GITH
 
 const CFG_ACCOUNT_TOKEN_LIMIT = process.env.ACCOUNT_TOKEN_LIMIT ? process.env.ACCOUNT_TOKEN_LIMIT : effVars.ACCOUNT_TOKEN_LIMIT;
 
+const CFG_HOURLY_LIMIT = process.env.HOURLY_LIMIT ? process.env.HOURLY_LIMIT : effVars.HOURLY_LIMIT;
+const CFG_DAILY_LIMIT = process.env.DAILY_LIMIT ? process.env.DAILY_LIMIT : effVars.DAILY_LIMIT;
+const CFG_WEEKLY_LIMIT = process.env.WEEKLY_LIMIT ? process.env.WEEKLY_LIMIT : effVars.WEEKLY_LIMIT;
+
 module.exports = {
   CFG_DB_NAME,
   CFG_DB_HOST,
@@ -128,5 +141,8 @@ module.exports = {
   CFG_INVALID_COUNTRIES,
   CFG_REQUEST_DELAY,
   CFG_GITHUB_ACCOUNT_AGE,
-  CFG_ACCOUNT_TOKEN_LIMIT
+  CFG_ACCOUNT_TOKEN_LIMIT,
+  CFG_DAILY_LIMIT,
+  CFG_HOURLY_LIMIT,
+  CFG_WEEKLY_LIMIT
 };

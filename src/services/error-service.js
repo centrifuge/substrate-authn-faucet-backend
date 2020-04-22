@@ -42,6 +42,18 @@ export const getErrorMessageandCode = (error) => {
           error_code = 422;
           error_message = 'Your overall account limit is reached. Please try again later.';
           break;
+        case errorStatus.HOURLY_LIMIT_REACHED:
+          error_code = 422;
+          error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again after an hour.';
+          break;
+        case errorStatus.DAILY_LIMIT_REACHED:
+          error_code = 422;
+          error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again tomorrow.';
+          break;
+        case errorStatus.WEEKLY_LIMIT_REACHED:
+          error_code = 422;
+          error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again next week.';
+          break;
         default:
           error_code = 400;
           error_message = 'Something went wrong. Please try again later.';

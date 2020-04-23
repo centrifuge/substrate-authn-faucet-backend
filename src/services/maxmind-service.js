@@ -11,8 +11,16 @@ export const getCountryFromIp = async (ip) => {
   const client = new WebServiceClient(Config.CFG_MAXMIND_ACCOUNT_ID, Config.CFG_MAXMIND_LICENSE_KEY);
 
   // Note: You can get more IPs for testing/validation at https://free-proxy-list.net/.
+  // Response object as per https://dev.maxmind.com/geoip/geoip2/web-services/#Response_Body
   const response = await client.country(ip);
-  return response.country.isoCode;
+  const countryIsoCode = response.country.isoCode; // req is coming from this ip.
+  const registedCountryIsoCode = response.registeredCountry.isoCode; // ip is registed in this country
+
+  if(countryIsoCode != null) return countryIsoCode;
+  if(registedCountryIsoCode != null) return registedCountryIsoCode;
+
+  // if both iso codes are null
+  throw new Error('INVALID_IP');
 };
 
 export const isValidCountry = (country) => {

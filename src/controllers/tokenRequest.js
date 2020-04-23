@@ -43,7 +43,7 @@ export const requestTokens = async (req, res) => {
     req.socket.remoteAddress ||
     (req.connection.socket ? req.connection.socket.remoteAddress : null);
     if(userCountry === null || userCountry === '') throw new Error(ErrorStatus.INVALID_USER_COUNTRY);
-    if(isUsCitizen === null || isUsCitizen === true) throw new Error(ErrorStatus.INVALID_COUNTRY);
+    if(isUsCitizen === null || isUsCitizen === true || userCountry === 'US') throw new Error(ErrorStatus.INVALID_COUNTRY);
     if(address === null || address === '') throw new Error(ErrorStatus.INVALID_CHAIN_ADDRESS);
     if(isTocPrivacy === null || isTocPrivacy === false) throw new Error(ErrorStatus.INVALID_TOC_PRIVACY);
     if(authType === null || authType === '' || !authType == 'github') throw new Error(ErrorStatus.INVAID_AUTH_TYPE);

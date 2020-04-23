@@ -47,7 +47,6 @@ export const getGithubUser = async (code) =>{
   }
   );
 
-  console.log('User response : ', userResponse.data);
   if (!userResponse.data) throw new Error('TOKEN_INVALID');
 
   return userResponse.data;

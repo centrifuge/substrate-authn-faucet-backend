@@ -54,6 +54,10 @@ export const getErrorMessageandCode = (error) => {
           error_code = 422;
           error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again next week.';
           break;
+        case errorStatus.HOUR_DAY_WEEK_DATA_NOT_PREPARED:
+          error_code = 422;
+          error_message = 'Something went wrong. Please try again later.';
+          break;
         default:
           error_code = 400;
           error_message = 'Something went wrong. Please try again later.';

@@ -1,6 +1,7 @@
 import * as Centrifuge from '../services/centrifuge-service';
 import * as GithubServices from '../services/github-services';
 import * as UserService from '../services/user-service';
+import * as TokenLimitService from '../services/token-limit-service';
 // import { PQueue } from 'p-queue';
 import { checkIPForValidCountry } from '../services/maxmind-service';
 import { getErrorMessageandCode } from '../services/error-service';
@@ -58,13 +59,13 @@ export const requestTokens = async (req, res) => {
     const isUserReqAfterAllowedDelay = await UserService.userReqAfterAllowedDelay(user);
     if(!isUserReqAfterAllowedDelay) throw new Error(ErrorStatus.INVALID_REQ_WITHIN_DELAY_PERIOD);
 
-    const isOverAllLimitReached = await UserService.checkOverallTokenLimit(user);
+    const isOverAllLimitReached = await TokenLimitService.checkOverallTokenLimit(user);
     if(!isOverAllLimitReached) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
 
     const isValidCountry = await checkIPForValidCountry(ipAddress);
     if(!isValidCountry) throw new Error(ErrorStatus.INVALID_COUNTRY);
 
-    const isValidHourDayWeekLimit = await UserService.checkHourDayWeakLimit();
+    const isValidHourDayWeekLimit = await TokenLimitService.checkHourDayWeakLimit();
     if(!isValidHourDayWeekLimit) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
 
     console.log('Recipient address : ', address);

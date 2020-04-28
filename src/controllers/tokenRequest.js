@@ -1,6 +1,7 @@
 import * as Centrifuge from '../services/centrifuge-service';
 import * as GithubServices from '../services/github-services';
 import * as UserService from '../services/user-service';
+import * as TokenLimitService from '../services/token-limit-service';
 // import { PQueue } from 'p-queue';
 import { checkIPForValidCountry } from '../services/maxmind-service';
 import { getErrorMessageandCode } from '../services/error-service';
@@ -43,7 +44,7 @@ export const requestTokens = async (req, res) => {
     req.socket.remoteAddress ||
     (req.connection.socket ? req.connection.socket.remoteAddress : null);
     if(userCountry === null || userCountry === '') throw new Error(ErrorStatus.INVALID_USER_COUNTRY);
-    if(isUsCitizen === null || isUsCitizen === true) throw new Error(ErrorStatus.INVALID_COUNTRY);
+    if(isUsCitizen === null || isUsCitizen === true || userCountry === 'US') throw new Error(ErrorStatus.INVALID_COUNTRY);
     if(address === null || address === '') throw new Error(ErrorStatus.INVALID_CHAIN_ADDRESS);
     if(isTocPrivacy === null || isTocPrivacy === false) throw new Error(ErrorStatus.INVALID_TOC_PRIVACY);
     if(authType === null || authType === '' || !authType == 'github') throw new Error(ErrorStatus.INVAID_AUTH_TYPE);
@@ -58,8 +59,14 @@ export const requestTokens = async (req, res) => {
     const isUserReqAfterAllowedDelay = await UserService.userReqAfterAllowedDelay(user);
     if(!isUserReqAfterAllowedDelay) throw new Error(ErrorStatus.INVALID_REQ_WITHIN_DELAY_PERIOD);
 
+    const isOverAllLimitReached = await TokenLimitService.checkOverallTokenLimit(user);
+    if(!isOverAllLimitReached) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
+
     const isValidCountry = await checkIPForValidCountry(ipAddress);
     if(!isValidCountry) throw new Error(ErrorStatus.INVALID_COUNTRY);
+
+    const isValidHourDayWeekLimit = await TokenLimitService.checkHourDayWeakLimit();
+    if(!isValidHourDayWeekLimit) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
 
     console.log('Recipient address : ', address);
     const txHash = await Centrifuge.transfer(address);

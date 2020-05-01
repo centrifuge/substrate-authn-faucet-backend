@@ -51,7 +51,7 @@ export const requestTokens = async (req, res) => {
     if(ipAddress === null || ipAddress === '' || ipAddress.startsWith('192') ) throw new Error(ErrorStatus.INVALID_IP_ADDRESS);
 
     const githubUser = await GithubServices.getGithubUser(github_token);
-    
+
     const isGithubAccountAgeValid = await GithubServices.userReqAfterGithubAccountAge(githubUser);
     if(!isGithubAccountAgeValid) throw new Error(ErrorStatus.INVALID_GITHUB_ACCOUNT_AGE);
 

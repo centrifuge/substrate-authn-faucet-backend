@@ -34,12 +34,8 @@ const vars = {
     NETOWRK_URL:'wss://fullnode.amber.centrifuge.io',
     TRANSFER_AMOUNT:'100000000000000000',
     MAXMIND_ACCOUNT_ID : '265272',
-
     INVALID_COUNTRIES : {
-      'US' :{
-        'COUNTRY': 'United States',
-        'ISO': 'US'
-      }
+      'US' : 'United States'
     },
     REQUEST_DELAY: 24, // request age after which token req allowed
     GITHUB_ACCOUNT_AGE: 180, // github account age in days
@@ -60,17 +56,14 @@ const vars = {
     TRANSFER_AMOUNT:'100000000000000000',
     MAXMIND_ACCOUNT_ID : '265272',
     INVALID_COUNTRIES : {
-      'US' :{
-        'COUNTRY': 'United States',
-        'ISO': 'US'
-      }
+      'US' : 'United States'
     },
     REQUEST_DELAY: 24, // request delay after which token req allowed
     GITHUB_ACCOUNT_AGE: 180, // github account age in days
-    ACCOUNT_TOKEN_LIMIT: '1000000000000000',
-    HOURLY_LIMIT: '300000000000000',
-    DAILY_LIMIT: '500000000000000',
-    WEEKLY_LIMIT: '1000000000000000'
+    ACCOUNT_TOKEN_LIMIT: '10000000000000000000',
+    HOURLY_LIMIT: '10000000000000000000000',
+    DAILY_LIMIT: '10000000000000000000000',
+    WEEKLY_LIMIT: '100000000000000000000000'
   }
 };
 

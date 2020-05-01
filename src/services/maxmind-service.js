@@ -4,9 +4,10 @@
 
 import {WebServiceClient} from '@maxmind/geoip2-node';
 import * as Config from '../config/config';
+import * as ErrorStatus from '../constants/error-status';
 
 export const getCountryFromIp = async (ip) => {
-  if(ip == null || ip == undefined) throw new Error('IP must be defined');
+  if(ip == null || ip == undefined) throw new Error(ErrorStatus.INVALID_IP);
 
   const client = new WebServiceClient(Config.CFG_MAXMIND_ACCOUNT_ID, Config.CFG_MAXMIND_LICENSE_KEY);
 
@@ -20,7 +21,7 @@ export const getCountryFromIp = async (ip) => {
   if(registedCountryIsoCode != null) return registedCountryIsoCode;
 
   // if both iso codes are null
-  throw new Error('INVALID_IP');
+  throw new Error(ErrorStatus.INVALID_IP);
 };
 
 export const isValidCountry = (country) => {

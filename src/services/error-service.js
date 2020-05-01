@@ -4,11 +4,15 @@ export const getErrorMessageandCode = (error) => {
     let error_code;
     let error_message;
     switch (error.message) {
-        case errorStatus.TOKEN_INVALID:
-          error_code = 401;
-          error_message =
-            'Token is invalid or has expired. Please try logging in again.';
+      case errorStatus.INVALID_IP:
+          error_code = 422;
+          error_message = 'Request form anonymous IP are not allowed';
           break;
+      case errorStatus.TOKEN_INVALID:
+        error_code = 401;
+        error_message =
+          'Token is invalid or has expired. Please try logging in again.';
+        break;
         case errorStatus.INVALID_COUNTRY:
           error_code = 422;
           error_message =

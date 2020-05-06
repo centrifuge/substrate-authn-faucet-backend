@@ -1,6 +1,6 @@
 import { Users, TokenRequests } from '../models';
 import Config from '../config/config';
-import { updateHourDayWeakData } from './token-limit-service'; 
+import { updateHourDayWeekData } from './token-limit-service';
 
 export const getCentrifugeUser = async (githubUser) => {
   try{
@@ -71,7 +71,7 @@ export const logTokenRequest = async (centrifugeUser, tokenDetails) => {
         txHash: tokenDetails.txHash,
         completed: true
       });
-      updateHourDayWeakData(new Date());
+      updateHourDayWeekData(new Date());
       return true;
     }
     catch(ex) {

@@ -13,6 +13,7 @@ export const getErrorMessageandCode = (error) => {
         error_message =
           'Token is invalid or has expired. Please try logging in again.';
         break;
+
         case errorStatus.INVALID_COUNTRY:
           error_code = 422;
           error_message =
@@ -51,6 +52,10 @@ export const getErrorMessageandCode = (error) => {
           error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again after an hour.';
           break;
         case errorStatus.DAILY_LIMIT_REACHED:
+          error_code = 422;
+          error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again tomorrow.';
+          break;
+        case errorStatus.INSUFFICIENT_FUNDS:
           error_code = 422;
           error_message = 'Faucet is dry, and we’re working to hydrate it. Please try again tomorrow.';
           break;

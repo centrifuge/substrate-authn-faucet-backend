@@ -14,8 +14,6 @@ import PrettyError from 'pretty-error';
 import expressOasGenerator from 'express-oas-generator';
 import session from 'express-session';
 import corsOptions from './cors';
-// import passport from './passport.js';
-import user from './routes/user'; // TODO: REMOVE the user route.
 import tokenRequest from './routes/tokenRequest';
 import healthcheck from './routes/healthCheck';
 
@@ -74,26 +72,8 @@ app.use(i18nextMiddleware.handle(i18next));
 // app.use(passport.session());
 app.use(flash());
 
-app.use('/user', user);
 app.use('/token-request', tokenRequest);
 app.use('/healthcheck', healthcheck);
-
-// The following routes are intended to be used in development mode only
-// TODO : Remove Me
-if (process.env.NODE_ENV !== 'production') {
-  // A route for testing authentication/authorization
-  app.get('/', (req, res) => {
-    if (req.user) {
-      res.send(
-        'Yes, you are logged in. Your github username is ______. f you are here, you definitely know where the API documentation is!'
-      );
-    } else {
-      res.send(
-        'Welcome to the Centrifuge Faucet API. If you are here, you definitely know where the API documentation is!'
-      );
-    }
-  });
-}
 
 const pe = new PrettyError();
 pe.skipNodeFiles();

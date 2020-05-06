@@ -2,7 +2,6 @@ import * as Centrifuge from '../services/centrifuge-service';
 import * as GithubServices from '../services/github-services';
 import * as UserService from '../services/user-service';
 import * as TokenLimitService from '../services/token-limit-service';
-// import { PQueue } from 'p-queue';
 import { checkIPForValidCountry } from '../services/maxmind-service';
 import { getErrorMessageandCode } from '../services/error-service';
 import * as ErrorStatus from '../constants/error-status';
@@ -21,7 +20,7 @@ export const healthCheck = async (req,res) => {
     const balance = await Centrifuge.walletBalance();
     res.status(200).json(balance);
   }catch(error){
-    res.status(500).json('Something went wrong', error);
+    res.status(500).json({ message: 'Something went wrong'});
   }
 };
 
@@ -50,6 +49,7 @@ export const requestTokens = async (req, res) => {
     if(authType === null || authType === '' || !authType == 'github') throw new Error(ErrorStatus.INVAID_AUTH_TYPE);
     if(ipAddress === null || ipAddress === '' || ipAddress.startsWith('192') ) throw new Error(ErrorStatus.INVALID_IP_ADDRESS);
 
+    await Centrifuge.hasFunds();
     const githubUser = await GithubServices.getGithubUser(github_token);
 
     const isGithubAccountAgeValid = await GithubServices.userReqAfterGithubAccountAge(githubUser);
@@ -65,7 +65,7 @@ export const requestTokens = async (req, res) => {
     const isValidCountry = await checkIPForValidCountry(ipAddress);
     if(!isValidCountry) throw new Error(ErrorStatus.INVALID_COUNTRY);
 
-    const isValidHourDayWeekLimit = await TokenLimitService.checkHourDayWeakLimit();
+    const isValidHourDayWeekLimit = await TokenLimitService.checkHourDayWeekLimit();
     if(!isValidHourDayWeekLimit) throw new Error(ErrorStatus.OVERALL_LIMIT_REACHED);
 
     console.log('Recipient address : ', address);

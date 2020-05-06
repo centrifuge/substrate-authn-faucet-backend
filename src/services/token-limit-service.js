@@ -26,7 +26,7 @@ export const checkOverallTokenLimit = async (centrifugeUser) => {
     }
 };
 
-export const updateHourDayWeakData = (createdAt) => {
+export const updateHourDayWeekData = (createdAt) => {
     const dayhour = getDateHour(createdAt);
     const transferAmount = Config.CFG_TRANSFER_AMOUNT;
     if(hourDayWeekData.hourly[dayhour] == undefined) {
@@ -53,7 +53,7 @@ export const updateHourDayWeakData = (createdAt) => {
     }
 };
 
-export const checkHourDayWeakLimit = async () => {
+export const checkHourDayWeekLimit = async () => {
     const hourlyLimit = Config.CFG_HOURLY_LIMIT;
     const dailyLimit = Config.CFG_DAILY_LIMIT;
     const weeklyLimit = Config.CFG_WEEKLY_LIMIT;
@@ -79,13 +79,13 @@ export const checkHourDayWeakLimit = async () => {
     return true;
 };
 
-export const prepareHourDayWeakLimitData = async () => {
+export const prepareHourDayWeekLimitData = async () => {
     try{
         const tokenRequests = await TokenRequests.findAll({
           raw : true
         });
         tokenRequests.map(req=> {
-          updateHourDayWeakData(req.createdAt);
+          updateHourDayWeekData(req.createdAt);
         });
         console.log(hourDayWeekData);
         initiated = true;
@@ -95,4 +95,4 @@ export const prepareHourDayWeakLimitData = async () => {
     }
 };
 
-prepareHourDayWeakLimitData();
+prepareHourDayWeekLimitData();

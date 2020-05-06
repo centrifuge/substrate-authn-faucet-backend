@@ -1,6 +1,5 @@
 import type { ValidationErrorEntry } from './types';
 
-// TODO: Log the error to Google Stackdriver, Rollbar etc.
 function report(error: Error) {
   // eslint-disable-next-line no-console
   console.error(error);

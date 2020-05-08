@@ -21,7 +21,9 @@ NODE_ENV|Export Development/Production.|
 
 ## Building Docker Image
 
-Build docker image with `docker build -t <repo_name>/substrate-authn-faucet-backend .`
+* Install dependencies `yarn install
+* Build source `yarn build`.
+* Build docker image with `docker build -t <repo_name>/substrate-authn-faucet-backend .`
 
 ## Running Docker Image
 
@@ -126,7 +128,6 @@ Go to localhost:8080/api-docs
 ```bash
 .
 ├── /build/                     # The compiled output (via Babel)
-├── /locales/                   # Localization resources (i18n)
 ├── /migrations/                # Database schema migrations
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files

@@ -6,7 +6,7 @@ const vars = {
     DB_DIALECT: 'sqlite',
     DB_STORAGE_PATH: '../database_test.sqlite',
     CORS_ORIGIN: '*',
-    GITHUB_CLIENT_ID: 'bd96258260f769a56370',
+    GITHUB_CLIENT_ID: '9dffefab6a7f7cfd1efb',
     NETOWRK_URL:'wss://fullnode.amber.centrifuge.io',
     TRANSFER_AMOUNT:'100000000000000',
     MAXMIND_ACCOUNT_ID : '265272',

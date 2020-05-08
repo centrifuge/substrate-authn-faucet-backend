@@ -45,7 +45,6 @@ module.exports = task(
       del.sync(['build/**', '!build'], { dot: true });
 
       let watcher = chokidar.watch([
-        'locales',
         'src',
         'package.json',
         'yarn.lock'

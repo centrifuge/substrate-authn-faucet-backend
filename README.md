@@ -21,7 +21,7 @@ NODE_ENV|Export Development/Production.|
 
 ## Building Docker Image
 
-* Install dependencies `yarn install
+* Install dependencies `yarn install`
 * Build source `yarn build`.
 * Build docker image with `docker build -t <repo_name>/substrate-authn-faucet-backend .`
 

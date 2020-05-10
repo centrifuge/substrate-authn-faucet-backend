@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "9688f511-4e9b-4148-a122-1ce903d0e802",
+    "name": "Centrifuge-Faucet",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Frontend",
+      "item": [
+        {
+          "name": "Token Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Bearer e72e16c7e42f292c6912e7710c838347ae178b4a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"full_name\" : \"John Doe\",\n\t\"email\": \"joen@doe.com\",\n\t\"company_name\" : \"Google Inc.\",\n\t\"country\" : \"Argentina\",\n\t\"us_citizen\" : false,\n\t\"address\" : \"5EXWNJuoProc7apm1JS8m9RTqV3vVwR9dCg6sQVpKnoHtJ68\",\n\t\"toc_and_privacy\" : true,\n\t\"auth_type\" : \"github\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/token-request",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["token-request"]
+            }
+          },
+          "response": [
+            {
+              "name": "Failure",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"full_name\" : \"John Doe\",\n\t\"company_name\" : \"Google Inc.\",\n\t\"country\" : \"Argentina\",\n\t\"us_citizen\" : 0,\n\t\"chain_address\" : \"5EXWNJuoProc7apm1JS8m9RTqV3vVwR9dCg6sQVpKnoHtJ68\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8080/request-token",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["request-token"]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n\t\"error\" : 1, \n\t\"mesage\" : \"Someting went wrong.\"\n}"
+            },
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"full_name\" : \"John Doe\",\n\t\"company_name\" : \"Google Inc.\",\n\t\"country\" : \"Argentina\",\n\t\"us_citizen\" : 0,\n\t\"chain_address\" : \"5EXWNJuoProc7apm1JS8m9RTqV3vVwR9dCg6sQVpKnoHtJ68\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8080/request-token",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["request-token"]
+                }
+              },
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n\t\"error\" : 0,\n\t\"message\" : \"Coins are successfully transferred to your address.\",\n\t\"tx_hash\" : \"0x00000000\"\n}"
+            }
+          ]
+        }
+      ],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Health Check",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/health-check",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["health-check"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"full_name\" : \"John Doe\",\n\t\"company_name\" : \"Google Inc.\",\n\t\"country\" : \"Argentina\",\n\t\"us_citizen\" : 0,\n\t\"chain_address\" : \"5EXWNJuoProc7apm1JS8m9RTqV3vVwR9dCg6sQVpKnoHtJ68\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8080/request-token",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["request-token"]
+                }
+              },
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n\t\"error\" : 0,\n\t\"message\" : \"Coins are successfully transferred to your address.\"\n}"
+            },
+            {
+              "name": "Failure",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"full_name\" : \"John Doe\",\n\t\"company_name\" : \"Google Inc.\",\n\t\"country\" : \"Argentina\",\n\t\"us_citizen\" : 0,\n\t\"chain_address\" : \"5EXWNJuoProc7apm1JS8m9RTqV3vVwR9dCg6sQVpKnoHtJ68\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8080/request-token",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["request-token"]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n\t\"error\" : 1, \n\t\"mesage\" : \"Someting went wrong.\"\n}"
+            }
+          ]
+        }
+      ],
+      "protocolProfileBehavior": {}
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

@@ -39,7 +39,7 @@ export const sequelize =
         }
       );
 
-const location = process.env.NODE_ENV == 'production' ? 'build/migrations' : 'migrations';
+const location = process.env.DOCKERIZED == 'false' ? 'migrations' : 'build/migrations';
 
 const runMigrations = async () => {
   try {

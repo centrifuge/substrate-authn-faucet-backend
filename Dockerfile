@@ -20,7 +20,7 @@ WORKDIR /usr/src/app
 COPY --from=0 /usr/src/app/build build
 COPY --from=0 /usr/src/app/package.json package.json
 RUN ls -l
-ENV NODE_ENV production
+ENV DOCKERIZED true
 RUN yarn install
 
 EXPOSE 8080

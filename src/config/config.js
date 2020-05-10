@@ -9,7 +9,7 @@ const vars = {
     GITHUB_CLIENT_ID: '9dffefab6a7f7cfd1efb',
     NETOWRK_URL:'wss://fullnode.amber.centrifuge.io',
     TRANSFER_AMOUNT:'100000000000000',
-    MAXMIND_ACCOUNT_ID : '265272',
+    MAXMIND_ACCOUNT_ID : '000000',
     INVALID_COUNTRIES : {
       'US' :{
         'COUNTRY': 'United States',
@@ -23,38 +23,17 @@ const vars = {
     DAILY_LIMIT: '500000000000000',
     WEEKLY_LIMIT: '1000000000000000'
   },
-  test: {
-    DB_NAME: 'testdb',
-    DB_HOST: 'localhost',
-    DB_USER: 'postgres',
-    DB_DIALECT: 'postgres',
-
-    CORS_ORIGIN: ['http://localhost:8080'],
-    GITHUB_CLIENT_ID: 'a37026ceb8c0357f259f',
-    NETOWRK_URL:'wss://fullnode.amber.centrifuge.io',
-    TRANSFER_AMOUNT:'100000000000000000',
-    MAXMIND_ACCOUNT_ID : '265272',
-    INVALID_COUNTRIES : {
-      'US' : 'United States'
-    },
-    REQUEST_DELAY: 24, // request age after which token req allowed
-    GITHUB_ACCOUNT_AGE: 180, // github account age in days
-    ACCOUNT_TOKEN_LIMIT: '1000000000000000',
-    HOURLY_LIMIT: '300000000000000',
-    DAILY_LIMIT: '500000000000000',
-    WEEKLY_LIMIT: '1000000000000000'
-  },
-  production: {
+  amber: {
     DB_NAME: 'sqlite',
     DB_HOST: 'localhost',
     DB_USER: 'sqlite',
     DB_DIALECT: 'sqlite',
     DB_STORAGE_PATH: '/data/centrifgue.db',
-    CORS_ORIGIN: ['https://centrifuge-demo.netlify.app'],
-    GITHUB_CLIENT_ID: 'bd96258260f769a56370',
+    CORS_ORIGIN: ['https://amber.faucet.chain.centrifuge.io'],
+    GITHUB_CLIENT_ID: '',
     NETOWRK_URL:'wss://fullnode.amber.centrifuge.io',
     TRANSFER_AMOUNT:'100000000000000000',
-    MAXMIND_ACCOUNT_ID : '265272',
+    MAXMIND_ACCOUNT_ID : '000000',
     INVALID_COUNTRIES : {
       'US' : 'United States'
     },

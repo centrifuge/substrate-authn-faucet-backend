@@ -32,17 +32,38 @@ const vars = {
     CORS_ORIGIN: ['https://amber.faucet.chain.centrifuge.io'],
     GITHUB_CLIENT_ID: '',
     NETOWRK_URL:'wss://fullnode.amber.centrifuge.io',
-    TRANSFER_AMOUNT:'100000000000000000',
+    TRANSFER_AMOUNT:'100000000000000000', // 1 ARAD
     MAXMIND_ACCOUNT_ID : '000000',
     INVALID_COUNTRIES : {
       'US' : 'United States'
     },
     REQUEST_DELAY: 24, // request delay after which token req allowed
     GITHUB_ACCOUNT_AGE: 180, // github account age in days
-    ACCOUNT_TOKEN_LIMIT: '10000000000000000000',
-    HOURLY_LIMIT: '10000000000000000000000',
-    DAILY_LIMIT: '10000000000000000000000',
-    WEEKLY_LIMIT: '100000000000000000000000'
+    ACCOUNT_TOKEN_LIMIT: '1000000000000000000', // 10 ARAD
+    HOURLY_LIMIT: '10000000000000000000', // 100 ARAD
+    DAILY_LIMIT: '50000000000000000000', // 500 ARAD
+    WEEKLY_LIMIT: '500000000000000000000' // 5000 ARAD
+  },
+  mainnet: {
+    DB_NAME: 'sqlite',
+    DB_HOST: 'localhost',
+    DB_USER: 'sqlite',
+    DB_DIALECT: 'sqlite',
+    DB_STORAGE_PATH: '/data/centrifgue.db',
+    CORS_ORIGIN: ['https://faucet.chain.centrifuge.io'],
+    GITHUB_CLIENT_ID: '',
+    NETOWRK_URL:'wss://fullnode.centrifuge.io',
+    TRANSFER_AMOUNT:'10000000000000000', // 0.1 RAD
+    MAXMIND_ACCOUNT_ID : '000000',
+    INVALID_COUNTRIES : {
+      'US' : 'United States'
+    },
+    REQUEST_DELAY: 24, // request delay after which token req allowed
+    GITHUB_ACCOUNT_AGE: 180, // github account age in days
+    ACCOUNT_TOKEN_LIMIT: '100000000000000000', // 1 RAD
+    HOURLY_LIMIT: '1000000000000000000', // 10 RAD
+    DAILY_LIMIT: '5000000000000000000', // 50 RAD
+    WEEKLY_LIMIT: '50000000000000000000' // 500 RAD
   }
 };
 

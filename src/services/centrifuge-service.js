@@ -18,10 +18,51 @@ const startup = async () => {
   pk = keyring.addFromUri(config.CFG_HOT_WALLET_SEED, {}, 'sr25519');
 
   api = await ApiPromise.create({provider,types: {
-    // mapping the actual specified address format
-    Address: 'AccountId',
-    // mapping the lookup
-    LookupSource: 'AccountId'
+      AnchorData: {
+        id: 'H256',
+        docRoot: 'H256',
+        anchoredBlock: 'u64'
+      },
+      Fee: {
+        key: 'Hash',
+        price: 'Balance'
+      },
+      PreCommitData: {
+        signingRoot: 'H256',
+        identity: 'H256',
+        expirationBlock: 'u64'
+      },
+      Proof: {
+        leafHash: 'H256',
+        sortedHashes: 'H256'
+      },
+      // MultiAccount
+      MultiAccountData: {
+        threshold: 'u16',
+        signatories: 'Vec<AccountId>',
+        deposit: 'Balance',
+        depositor: 'AccountId'
+      },
+      Address: 'GenericAddress',
+      LookupSource: 'GenericAddress',
+      // Bridge constants
+      ChainId: 'u8',
+      ResourceId: '[u8; 32]',
+      'chainbridge::ChainId': 'u8',
+      DepositNonce: 'u64',
+      ProposalStatus: {
+        _enum: [
+          'Initiated',
+          'Approved',
+          'Rejected'
+        ]
+      },
+      ProposalVotes: {
+        votes_for: 'Vec<AccountId>',
+        votes_against: 'Vec<AccountId>',
+        status: 'ProposalStatus',
+        expiry: 'BlockNumber'
+      }
   }});
 };
 

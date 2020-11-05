@@ -25,7 +25,7 @@ export const getErrorMessageandCode = (error) => {
           break;
         case errorStatus.INVALID_GITHUB_ACCOUNT_AGE:
           error_code = 422;
-          error_message = 'Your Github account should be 180 days older.';
+          error_message = 'Your Github account should be 180 days or older.';
           break;
         case errorStatus.INVALID_REQ_WITHIN_DELAY_PERIOD:
           error_code = 422;
